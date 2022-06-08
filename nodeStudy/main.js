@@ -1,4 +1,3 @@
 const fs = require("fs");
 
-let fileList = fs.readdirSync(".");
-console.log(fileList);
+fs.writeFileSync("new", "Hello Node.js!");
