@@ -1,3 +1,7 @@
-const os = require("os");
+const cowsay = require("cowsay");
 
-console.log(os.cpus());
+console.log(
+  cowsay.say({
+    text: "I love javascript",
+  })
+);
