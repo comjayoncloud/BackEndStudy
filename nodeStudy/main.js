@@ -1,3 +1,3 @@
-const fs = require("fs");
+const os = require("os");
 
-fs.writeFileSync("new", "Hello Node.js!");
+console.log(os.cpus());
