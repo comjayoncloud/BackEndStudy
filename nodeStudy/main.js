@@ -1,17 +1,11 @@
-const fs = require("fs"); // 코어 모듈
+const EventEmitter = require("events"); // 코어모듈
 
-// console.log("start");
+const myEmitter = new EventEmitter(); // 객체로 만들어줘야 사용이 가능
 
-// let content = fs.readFileSync("./new", "utf8");
+myEmitter.emit("test");
 
-// console.log(content);
-
-// console.log("finish");
-
-console.log("start");
-
-fs.readFile("./new", "utf8", (error, data) => {
-  console.log(data);
+myEmitter.on("test", () => {
+  console.log("success!");
 });
 
-console.log("finish");
+// myEmitter.emit("test");
