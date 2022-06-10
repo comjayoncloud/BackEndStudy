@@ -1,11 +1,7 @@
-const EventEmitter = require("events"); // 코어모듈
+const http = require("http"); // 코어모듈
 
-const myEmitter = new EventEmitter(); // 객체로 만들어줘야 사용이 가능
-
-const obj = { type: "text", data: "hello codeit", date: "2020-09-01" };
-
-myEmitter.on("test", (info) => {
-  console.log(info);
+let server = http.createServer(function (request, response) {
+  response.end("<h1>Hello world!</h1>");
 });
-
-myEmitter.emit("test", obj);
+//request는 클라이언트의 요청에 대한 객체 , response는 서버가 응답할 객체
+server.listen(3000); // 클라이언트 요청 받을 준비가됨
