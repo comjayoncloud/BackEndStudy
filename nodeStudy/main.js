@@ -1,7 +1,6 @@
-const http = require("http"); // 코어모듈
+let url = new URL("http://example.com/business/mart/item?category=14&id=2965");
 
-let server = http.createServer(function (request, response) {
-  response.end("<h1>Hello world!</h1>");
-});
-//request는 클라이언트의 요청에 대한 객체 , response는 서버가 응답할 객체
-server.listen(3000); // 클라이언트 요청 받을 준비가됨
+console.log(url.protocol);
+console.log(url.host);
+console.log(url.pathname);
+console.log(url.search);
