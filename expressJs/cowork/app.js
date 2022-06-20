@@ -4,6 +4,8 @@ const app = express(); // 관습적으로 app
 
 let members = require("./members");
 
+app.use(express.json());
+
 app.get("/api/members", (req, res) => {
   // res.send(members);
   const { team } = req.query;
@@ -30,6 +32,9 @@ app.get("/api/members/:id", (req, res) => {
 
 app.post("/api/members", (req, res) => {
   console.log(req.body);
+  const newMember = req.body;
+  members.push(newMember);
+  res.send(newMember);
 });
 
 app.listen(3000, () => {
