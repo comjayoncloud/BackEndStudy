@@ -28,6 +28,10 @@ app.get("/api/members/:id", (req, res) => {
   }
 }); // :id는 라우트 파라미터
 
+app.post("/api/members", (req, res) => {
+  console.log(req.body);
+});
+
 app.listen(3000, () => {
   console.log("server is listening..");
 });
