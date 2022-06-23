@@ -1,0 +1,18 @@
+GET http://localhost:3000/api/members
+
+###
+
+POST http://localhost:3000/api/members
+Content-Type: application/json
+
+{
+    "id":11,
+    "name":"Zakee",
+    "team":"Engineering",
+    "position":"Android Developer",
+    "emailAdress":"zake@google.com",
+    "phoneNumber":"010-xxxx-xxxx",
+    "admissionDate":"2022/06/20",
+    "birthday":"1992/12/15",
+    "profileImage":"profile11.png"
+}
