@@ -37,6 +37,21 @@ app.post("/api/members", (req, res) => {
   res.send(newMember);
 });
 
+app.put("/api/members/:id", (req, res) => {
+  const { id } = req.params;
+  const newInfo = req.body;
+  const member = members.find((m) => m.id === Number(id));
+  if (member) {
+    Object.keys(newInfo).forEach((prop) => {
+      member[prop] = newInfo[prop];
+    });
+    // Object.keys는 특정 객체의 모든 프로퍼티를 조회할수 있음
+    res.send(member);
+  } else {
+    res.status(404).send({ message: "there is no memeber with the id!" });
+  }
+});
+
 app.listen(3000, () => {
   console.log("server is listening..");
 });
