@@ -52,6 +52,17 @@ app.put("/api/members/:id", (req, res) => {
   }
 });
 
+app.delete("/api/members/:id", (req, res) => {
+  const { id } = req.params;
+  const memberCount = members.length;
+  members = members.filter((member) => member.id !== Number(id));
+  if (members.length < memberCount) {
+    res.send({ message: "Deleted" });
+  } else {
+    res.status(404).send({ message: "there is no member with the id!" });
+  }
+});
+
 app.listen(3000, () => {
   console.log("server is listening..");
 });
