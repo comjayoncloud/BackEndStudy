@@ -1,10 +1,8 @@
 "use strict";
-
-const sequelize = require("sequelize");
-
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("members", {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("Members", {
+      // 왜 Mebmers ? 's'가 왜 붙었지 ? sequelize의 특징
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,16 +36,16 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.fn("now"),
+        defaultValue: Sequelize.fn("NOW"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: sequelize.fn("now"),
+        defaultValue: Sequelize.fn("NOW"),
       },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("members");
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("Members");
   },
 };

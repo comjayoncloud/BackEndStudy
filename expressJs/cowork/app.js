@@ -2,17 +2,22 @@ const express = require("express");
 
 const app = express(); // 관습적으로 app
 
-let members = require("./members");
+const db = require("./models");
+
+const { Member } = db;
+
+console.log(Member);
 
 app.use(express.json());
 
-app.get("/api/members", (req, res) => {
-  // res.send(members);
+app.get("/api/members", async (req, res) => {
   const { team } = req.query;
   if (team) {
-    const teamMembers = members.filter((m) => m.team === team);
+    const teamMembers = await Member.findAll({ where: { team } });
     res.send(teamMembers);
   } else {
+    // console.log(Member);
+    const members = await Member.findAll(); // 모든 row 조회해서 가져옴
     res.send(members);
   }
 }); // 콜백 혹은 route handler라고함
