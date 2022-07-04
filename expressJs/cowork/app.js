@@ -6,8 +6,6 @@ const db = require("./models");
 
 const { Member } = db;
 
-console.log(Member);
-
 app.use(express.json());
 
 app.get("/api/members", async (req, res) => {
@@ -42,16 +40,12 @@ app.post("/api/members", async (req, res) => {
   res.send(member);
 });
 
-app.put("/api/members/:id", (req, res) => {
+app.put("/api/members/:id", async (req, res) => {
   const { id } = req.params;
   const newInfo = req.body;
-  const member = members.find((m) => m.id === Number(id));
-  if (member) {
-    Object.keys(newInfo).forEach((prop) => {
-      member[prop] = newInfo[prop];
-    });
-    // Object.keys는 특정 객체의 모든 프로퍼티를 조회할수 있음
-    res.send(member);
+  const result = await Member.update(newInfo, { where: { id } });
+  if (result[0]) {
+    res.send({ message: `${result[0]} row(s) affacted` });
   } else {
     res.status(404).send({ message: "there is no memeber with the id!" });
   }
