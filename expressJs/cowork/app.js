@@ -35,11 +35,11 @@ app.get("/api/members/:id", async (req, res) => {
   }
 }); // :id는 라우트 파라미터
 
-app.post("/api/members", (req, res) => {
-  console.log(req.body);
+app.post("/api/members", async (req, res) => {
   const newMember = req.body;
-  members.push(newMember);
-  res.send(newMember);
+  const member = Member.build(newMember);
+  await member.save();
+  res.send(member);
 });
 
 app.put("/api/members/:id", (req, res) => {
