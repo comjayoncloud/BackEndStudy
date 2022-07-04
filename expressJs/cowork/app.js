@@ -24,10 +24,10 @@ app.get("/api/members", async (req, res) => {
 // req : 이 객체를 통해서 클라이언트가 보낸 request를 다룰수 있음
 // res : 이 객체를 통해서 적절한 리스폰스를 보낼수 있다.
 
-app.get("/api/members/:id", (req, res) => {
+app.get("/api/members/:id", async (req, res) => {
   // const id = req.params.id;
   const { id } = req.params;
-  const member = members.find((m) => m.id === Number(id));
+  const member = await Member.findOne({ where: { id } });
   if (member) {
     res.send(member);
   } else {
