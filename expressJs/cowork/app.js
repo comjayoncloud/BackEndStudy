@@ -40,25 +40,42 @@ app.post("/api/members", async (req, res) => {
   res.send(member);
 });
 
-app.put("/api/members/:id", async (req, res) => {
+////## PUT 방법1
+
+// app.put("/api/members/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const newInfo = req.body;
+//   const result = await Member.update(newInfo, { where: { id } });
+//   if (result[0]) {
+//     res.send({ message: `${result[0]} row(s) affacted` });
+//   } else {
+//     res.status(404).send({ message: "there is no memeber with the id!" });
+//   }
+// });
+
+//// ## PUT 방법2 (ORM)
+app.put("api/members/:id", async (req, res) => {
   const { id } = req.params;
   const newInfo = req.body;
-  const result = await Member.update(newInfo, { where: { id } });
-  if (result[0]) {
-    res.send({ message: `${result[0]} row(s) affacted` });
+  const member = await Member.findOne({ where: { id } }); // 왜가져올까? member는 해당 row와 연동 되있기 때문
+  if (member) {
+    Object.keys(newInfo).forEach((prop) => {
+      member[prop] = newInfo[prop];
+    });
+    await member.save();
+    res.send(member);
   } else {
-    res.status(404).send({ message: "there is no memeber with the id!" });
+    res.status(404).send({ message: "there is no member with the id!" });
   }
 });
 
-app.delete("/api/members/:id", (req, res) => {
+app.delete("/api/members/:id", async (req, res) => {
   const { id } = req.params;
-  const memberCount = members.length;
-  members = members.filter((member) => member.id !== Number(id));
-  if (members.length < memberCount) {
-    res.send({ message: "Deleted" });
+  const deleteCount = await Member.destroy({ where: { id } });
+  if (deleteCount) {
+    res.send({ message: `${deleteCount} row(s) deleted` });
   } else {
-    res.status(404).send({ message: "there is no member with the id!" });
+    res.status(404).send({ message: "There is no member with the id!" });
   }
 });
 
